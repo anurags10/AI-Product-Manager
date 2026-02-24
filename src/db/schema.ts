@@ -1,4 +1,4 @@
-import { relations } from 'drizzle-orm';
+import { relations } from "drizzle-orm";
 import {
   jsonb,
   pgTable,
@@ -6,36 +6,36 @@ import {
   timestamp,
   uniqueIndex,
   uuid,
-} from 'drizzle-orm/pg-core';
+} from "drizzle-orm/pg-core";
 
 export const users = pgTable(
-  'users',
+  "users",
   {
-    id: uuid('id').defaultRandom().primaryKey(),
-    email: text('email').notNull().unique(),
-    passwordHash: text('passwordHash').notNull(),
-    createdAt: timestamp('createdAt').defaultNow(),
+    id: uuid("id").defaultRandom().primaryKey(),
+    email: text("email").notNull().unique(),
+    passwordHash: text("passwordHash").notNull(),
+    createdAt: timestamp("createdAt").defaultNow(),
   },
-  pgTable => {
+  (pgTable) => {
     return {
-      emailIndex: uniqueIndex('emailIndex').on(pgTable.email),
+      emailIndex: uniqueIndex("emailIndex").on(pgTable.email),
     };
-  }
+  },
 );
 
-export const projects = pgTable('projects', {
-  id: uuid('id').defaultRandom().primaryKey(),
-  userId: uuid('userId').references(() => users.id),
-  name: text('name').notNull(),
-  prdText: text('prdText').notNull(),
-  createdAt: timestamp('createdAt').defaultNow(),
+export const projects = pgTable("projects", {
+  id: uuid("id").defaultRandom().primaryKey(),
+  userId: uuid("userId").references(() => users.id),
+  name: text("name").notNull(),
+  prdText: text("prdText").notNull(),
+  createdAt: timestamp("createdAt").defaultNow(),
 });
 
-export const roadmaps = pgTable('roadmaps', {
-  id: uuid('id').defaultRandom().primaryKey(),
-  projectId: uuid('projectId').references(() => projects.id),
-  roadmapData: jsonb('roadmapData').notNull(),
-  createdAt: timestamp('createdAt').defaultNow(),
+export const roadmaps = pgTable("roadmaps", {
+  id: uuid("id").defaultRandom().primaryKey(),
+  projectId: uuid("projectId").references(() => projects.id),
+  roadmapData: jsonb("roadmapData").notNull(),
+  createdAt: timestamp("createdAt").defaultNow(),
 });
 
 // Relationships
