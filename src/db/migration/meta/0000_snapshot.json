@@ -1,5 +1,5 @@
 {
-  "id": "b2caa876-f094-45b3-9e97-41d98405f7bf",
+  "id": "6a808e03-c39b-466f-ab50-695dd0cab3ec",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "version": "7",
   "dialect": "postgresql",
@@ -49,7 +49,7 @@
           "tableTo": "users",
           "columnsFrom": ["userId"],
           "columnsTo": ["id"],
-          "onDelete": "no action",
+          "onDelete": "cascade",
           "onUpdate": "no action"
         }
       },
@@ -98,7 +98,7 @@
           "tableTo": "projects",
           "columnsFrom": ["projectId"],
           "columnsTo": ["id"],
-          "onDelete": "no action",
+          "onDelete": "cascade",
           "onUpdate": "no action"
         }
       },
