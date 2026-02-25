@@ -27,7 +27,7 @@ export const users = pgTable(
 
 export const projects = pgTable("projects", {
   id: uuid("id").defaultRandom().primaryKey(),
-  userId: uuid("userId").references(() => users.id),
+  userId: uuid("userId").references(() => users.id, { onDelete: "cascade" }),
   name: text("name").notNull(),
   prdText: text("prdText").notNull(),
   createdAt: timestamp("createdAt").defaultNow(),
@@ -35,7 +35,9 @@ export const projects = pgTable("projects", {
 
 export const roadmaps = pgTable("roadmaps", {
   id: uuid("id").defaultRandom().primaryKey(),
-  projectId: uuid("projectId").references(() => projects.id),
+  projectId: uuid("projectId").references(() => projects.id, {
+    onDelete: "cascade",
+  }),
   roadmapData: jsonb("roadmapData").notNull(),
   createdAt: timestamp("createdAt").defaultNow(),
 });
