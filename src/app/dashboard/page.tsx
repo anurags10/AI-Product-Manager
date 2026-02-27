@@ -1,12 +1,13 @@
 "use client";
 
-import { motion } from "motion/react";
 import { Plus } from "lucide-react";
 import EmptyState from "../ui/emptyState";
 import ProjectGrid from "../ui/projectGrid";
+import ProjectSkeleton from "../ui/projectSkeleton";
+import { useProject } from "../hooks/useProjects";
 
 export default function DashboardPage() {
-  const projects: any[] = []; // temporary placeholder
+  const { data: projects, isLoading, isError } = useProject();
 
   return (
     <div className="space-y-6">
@@ -20,8 +21,16 @@ export default function DashboardPage() {
         </button>
       </div>
 
+      {/* Loading */}
+      {isLoading && <ProjectSkeleton />}
+
+      {/* Error */}
+      {isError && (
+        <div className="text-red-500 text-sm">Failed to load projects.</div>
+      )}
+
       {/* Grid */}
-      {projects.length === 0 ? (
+      {projects?.length === 0 ? (
         <EmptyState />
       ) : (
         <ProjectGrid projects={projects} />

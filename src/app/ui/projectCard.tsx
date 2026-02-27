@@ -1,6 +1,7 @@
 import { motion } from "motion/react";
+import type { Project } from "@/types/project";
 
-export default function ProjectCard({ project }: { project: any }) {
+export default function ProjectCard({ project }: { project: Project }) {
   return (
     <motion.div
       variants={{

@@ -1,6 +1,11 @@
 import { motion } from "motion/react";
 import ProjectCard from "./projectCard";
-export default function ProjectGrid({ projects }: { projects: any[] }) {
+import type { Project } from "@/types/project";
+export default function ProjectGrid({
+  projects = [],
+}: {
+  projects?: Project[];
+}) {
   return (
     <motion.div
       initial="hidden"
