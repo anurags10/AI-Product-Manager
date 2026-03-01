@@ -39,6 +39,7 @@ export async function GET() {
   }
   const userProjects = await db.query.projects.findMany({
     where: (projects, { eq }) => eq(projects.userId, session.user.id),
+    orderBy: (projects, { desc }) => [desc(projects.createdAt)],
   });
 
   return Response.json(userProjects);

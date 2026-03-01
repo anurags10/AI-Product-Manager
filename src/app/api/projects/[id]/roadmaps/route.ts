@@ -67,6 +67,7 @@ export async function GET(
 
   const roadmapsData = await db.query.roadmaps.findMany({
     where: eq(roadmaps.projectId, params.id),
+    orderBy: (roadmaps, { desc }) => [desc(roadmaps.createdAt)],
   });
   if (!roadmapsData.length) {
     return new Response("Not found or not allowed", { status: 404 });
