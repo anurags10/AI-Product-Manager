@@ -19,6 +19,7 @@ export async function GET(
       eq(roadmaps.projectId, params.id),
     ),
     with: { project: true },
+    orderBy: (roadmaps, { desc }) => [desc(roadmaps.createdAt)],
   });
   if (!roadmapData || roadmapData.project?.userId !== session.user.id) {
     return new Response("Not found or not allowed", { status: 404 });
