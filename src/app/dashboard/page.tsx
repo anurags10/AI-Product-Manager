@@ -12,6 +12,8 @@ export default function DashboardPage() {
   const [open, setOpen] = useState<boolean>(false);
   const { data: projects, isLoading, isError } = useProject();
 
+  console.log(projects);
+
   return (
     <div className="space-y-6">
       {/* Header */}

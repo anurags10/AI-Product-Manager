@@ -38,13 +38,17 @@ export default function LoginPage() {
           min={8}
         />
 
-        <Button className="w-full" onClick={handleLogin} type="submit">
+        <Button
+          className="w-full cursor-pointer"
+          onClick={handleLogin}
+          type="submit"
+        >
           Login
         </Button>
 
         <Button
           variant="outline"
-          className="w-full"
+          className="w-full cursor-pointer"
           onClick={() =>
             signIn("google", {
               callbackUrl: "/dashboard",

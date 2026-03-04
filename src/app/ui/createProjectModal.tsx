@@ -5,6 +5,8 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { projectSchema, ProjectInput } from "../lib/validator/projects";
 import { toast } from "sonner";
+import { X } from "lucide-react";
+import { useCreateProject } from "../hooks/useProjects";
 
 export default function CreateProjectModal({
   onClose,
@@ -12,6 +14,8 @@ export default function CreateProjectModal({
   onClose: () => void;
 }) {
   const queryClient = useQueryClient();
+  const createProject = useCreateProject(onClose);
+
   const {
     register,
     handleSubmit,
@@ -20,63 +24,27 @@ export default function CreateProjectModal({
     resolver: zodResolver(projectSchema),
   });
 
-  const mutation = useMutation({
-    mutationFn: async (data: ProjectInput) => {
-      const res = await fetch("/api/projects", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(data),
-      });
-      if (!res.ok) {
-        throw new Error("Failed to create project");
-      }
-
-      return res.json();
-    },
-    onMutate: async (newProject) => {
-      await queryClient.cancelQueries({ queryKey: ["project"] });
-      const previousProjects = queryClient.getQueryData(["project"]);
-      const optimisticProject = {
-        id: `temp-${Date.now()}`,
-        userId: "temp",
-        name: newProject.name,
-        prdText: newProject.prdText,
-        createdAt: new Date().toISOString(),
-      };
-      queryClient.setQueryData(["project"], (old: any[] = []) => [
-        optimisticProject,
-        ...old,
-      ]);
-
-      return { previousProjects };
-    },
-    onSuccess: (createdProject) => {
-      queryClient.setQueryData(["project"], (old: any[] = []) => [
-        old.map((project) =>
-          project.id.startsWith("temp-") ? createdProject : project,
-        ),
-      ]);
-      toast.success("Project created successfully");
-
-      onClose();
-    },
-    onError: (_err, _variables, context) => {
-      if (context?.previousProjects) {
-        queryClient.setQueryData(["project"], context.previousProjects);
-      }
-      toast.error("Something went wrong");
-    },
-    onSettled: () => {
-      queryClient.invalidateQueries({ queryKey: ["project"] });
-    },
-  });
-
   const onSubmit = (data: ProjectInput) => {
-    mutation.mutate(data);
+    createProject.mutate(data);
   };
+
   return (
-    <div className="fixed inset-0 bg-black/40 flex items-center justify-center text-black">
-      <div className="bg-white rounded-2xl p-6 w-full max-w-md">
+    <div
+      className="fixed inset-0 bg-black/40 flex items-center justify-center text-black"
+      onClick={onClose} // ✅ close when clicking backdrop
+    >
+      <div
+        className="relative bg-white rounded-2xl p-6 w-full max-w-md"
+        onClick={(e) => e.stopPropagation()} // ✅ prevent closing when clicking inside
+      >
+        {/* ✅ Close Button */}
+        <button
+          onClick={onClose}
+          className="absolute top-4 right-4 text-gray-500 hover:text-black transition"
+        >
+          <X size={20} />
+        </button>
+
         <h3 className="text-lg font-semibold mb-4">Create Project</h3>
 
         <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">

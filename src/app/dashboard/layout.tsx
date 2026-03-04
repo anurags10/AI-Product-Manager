@@ -3,8 +3,9 @@
 import { ReactNode } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { motion } from "framer-motion";
+import { motion } from "motion/react";
 import { Button } from "@/components/ui/button";
+import { signOut } from "next-auth/react";
 
 export default function DashboardLayout({ children }: { children: ReactNode }) {
   const pathname = usePathname();
@@ -26,7 +27,10 @@ export default function DashboardLayout({ children }: { children: ReactNode }) {
         </nav>
 
         <div className="p-4 border-t border-zinc-200">
-          <Button className="w-full text-shadow-white hover:text-shadow-teal-100 transition cursor-pointerp">
+          <Button
+            className="w-full text-shadow-white hover:text-shadow-teal-100 transition cursor-pointer"
+            onClick={() => signOut({ callbackUrl: "/" })}
+          >
             Logout
           </Button>
         </div>

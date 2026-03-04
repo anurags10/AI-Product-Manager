@@ -15,11 +15,13 @@ export default function HomePage() {
 
       <div className="flex gap-4">
         <Link href="/login">
-          <Button size="lg">Login</Button>
+          <Button size="lg" className="cursor-pointer">
+            Login
+          </Button>
         </Link>
 
         <Link href="/register">
-          <Button variant="outline" size="lg">
+          <Button variant="outline" size="lg" className="cursor-pointer">
             Sign Up
           </Button>
         </Link>
