@@ -41,6 +41,8 @@ export default function EditProjectModal({ project }: { project: Project }) {
     });
   }, [project, reset]);
 
+  console.log(project.id, "project id in edit modal"); // Debug log
+
   const onSubmit = async (data: ProjectInput) => {
     await updateProject.mutateAsync({
       id: project.id!,
@@ -58,7 +60,7 @@ export default function EditProjectModal({ project }: { project: Project }) {
         </Button>
       </DialogTrigger>
 
-      <DialogContent>
+      <DialogContent className="max-h-[90vh] overflow-y-auto sm:max-w-lg">
         <DialogHeader>
           <DialogTitle>Edit Project</DialogTitle>
         </DialogHeader>
@@ -74,7 +76,7 @@ export default function EditProjectModal({ project }: { project: Project }) {
           <div>
             <Textarea
               placeholder="Product requirements..."
-              rows={6}
+              className="min-h-[200px] max-h-[400px] overflow-y-auto"
               {...register("prdText")}
             />
             {errors.prdText && (

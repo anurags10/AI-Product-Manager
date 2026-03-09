@@ -1,10 +1,10 @@
 import { motion } from "motion/react";
 import type { Project } from "@/types/project";
 import { useUpdateProject, useDeleteProject } from "../hooks/useProjects";
+import EditProjectModal from "./editProjectModal";
 
 export default function ProjectCard({ project }: { project: Project }) {
   const deleteProject = useDeleteProject();
-  const updateProject = useUpdateProject();
   return (
     <motion.div
       variants={{
@@ -19,6 +19,9 @@ export default function ProjectCard({ project }: { project: Project }) {
 
       <div className="mt-4 text-xs text-zinc-400">
         Created at: {project.createdAt}
+      </div>
+      <div className="mt-4 flex gap-2">
+        <EditProjectModal project={project} />
       </div>
     </motion.div>
   );
