@@ -2,9 +2,7 @@
 
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { projectSchema, ProjectInput } from "../lib/validator/projects";
-import { toast } from "sonner";
 import { X } from "lucide-react";
 import { useCreateProject } from "../hooks/useProjects";
 
@@ -13,7 +11,6 @@ export default function CreateProjectModal({
 }: {
   onClose: () => void;
 }) {
-  const queryClient = useQueryClient();
   const createProject = useCreateProject(onClose);
 
   const {

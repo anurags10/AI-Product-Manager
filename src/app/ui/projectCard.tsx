@@ -1,7 +1,10 @@
 import { motion } from "motion/react";
 import type { Project } from "@/types/project";
+import { useUpdateProject, useDeleteProject } from "../hooks/useProjects";
 
 export default function ProjectCard({ project }: { project: Project }) {
+  const deleteProject = useDeleteProject();
+  const updateProject = useUpdateProject();
   return (
     <motion.div
       variants={{
