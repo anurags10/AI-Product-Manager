@@ -10,21 +10,19 @@ export async function POST(
   _req: Request,
   { params }: { params: { id: string } },
 ) {
+  const { id } = await params;
   const session = await getServerSession(authOptions);
   if (!session?.user.id) {
     return new Response("Unauthorized", { status: 401 });
   }
   const project = await db.query.projects.findFirst({
-    where: and(
-      eq(projects.id, params.id),
-      eq(projects.userId, session.user.id),
-    ),
+    where: and(eq(projects.id, id), eq(projects.userId, session.user.id)),
   });
   if (!project) {
     return new Response("Not found or not allowed", { status: 404 });
   }
   const roadmapsData = await db.query.roadmaps.findMany({
-    where: eq(roadmaps.projectId, params.id),
+    where: eq(roadmaps.projectId, id),
   });
 
   if (roadmapsData.length >= 2) {
@@ -37,7 +35,7 @@ export async function POST(
   const inserted = await db
     .insert(roadmaps)
     .values({
-      projectId: params.id,
+      projectId: id,
       roadmapData,
     })
     .returning();
@@ -49,16 +47,14 @@ export async function GET(
   _req: Request,
   { params }: { params: { id: string } },
 ) {
+  const { id } = await params;
   const session = await getServerSession(authOptions);
   if (!session?.user.id) {
     return new Response("Unauthorized", { status: 401 });
   }
 
   const project = await db.query.projects.findFirst({
-    where: and(
-      eq(projects.id, params.id),
-      eq(projects.userId, session.user.id),
-    ),
+    where: and(eq(projects.id, id), eq(projects.userId, session.user.id)),
   });
 
   if (!project) {
@@ -66,7 +62,7 @@ export async function GET(
   }
 
   const roadmapsData = await db.query.roadmaps.findMany({
-    where: eq(roadmaps.projectId, params.id),
+    where: eq(roadmaps.projectId, id),
     orderBy: (roadmaps, { desc }) => [desc(roadmaps.createdAt)],
   });
   if (!roadmapsData.length) {
