@@ -16,6 +16,7 @@ import {
 } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import { Edit } from "lucide-react";
 
 export default function EditProjectModal({ project }: { project: Project }) {
   const [open, setOpen] = useState(false);
@@ -55,8 +56,8 @@ export default function EditProjectModal({ project }: { project: Project }) {
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
-        <Button size="sm" variant="outline">
-          Edit
+        <Button size="sm" variant="outline" className="cursor-pointer">
+          <Edit size={16} />
         </Button>
       </DialogTrigger>
 
@@ -88,7 +89,7 @@ export default function EditProjectModal({ project }: { project: Project }) {
 
           <Button
             type="submit"
-            className="w-full"
+            className="w-full cursor-pointer"
             disabled={updateProject.isPending}
           >
             {updateProject.isPending ? "Updating..." : "Update Project"}

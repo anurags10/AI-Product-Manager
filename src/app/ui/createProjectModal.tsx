@@ -37,7 +37,7 @@ export default function CreateProjectModal({
         {/* ✅ Close Button */}
         <button
           onClick={onClose}
-          className="absolute top-4 right-4 text-gray-500 hover:text-black transition"
+          className="absolute top-4 right-4 text-gray-500 hover:text-black transition cursor-pointer"
         >
           <X size={20} />
         </button>
@@ -72,7 +72,7 @@ export default function CreateProjectModal({
           <button
             type="submit"
             disabled={isSubmitting}
-            className="w-full bg-zinc-900 text-white py-2 rounded-lg text-sm font-medium"
+            className="w-full bg-zinc-900 text-white py-2 rounded-lg text-sm font-medium cursor-pointer disabled:bg-gray-400 disabled:cursor-not-allowed"
           >
             {isSubmitting ? "Creating..." : "Create"}
           </button>
