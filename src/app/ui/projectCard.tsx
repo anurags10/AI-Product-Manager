@@ -3,6 +3,7 @@ import type { Project } from "@/types/project";
 import EditProjectModal from "./editProjectModal";
 import DeleteProjectDialog from "./deleteProjectDialog";
 import { Trash } from "lucide-react";
+import Link from "next/link";
 
 export default function ProjectCard({ project }: { project: Project }) {
   return (
@@ -22,9 +23,20 @@ export default function ProjectCard({ project }: { project: Project }) {
         </h3>
       </div>
 
+      {/* Description */}
       <p className="mt-2 text-sm text-zinc-500 line-clamp-2">
         {project.prdText?.slice(0, 120)}
       </p>
+
+      {/* 🚀 Primary Action */}
+      <div className="mt-4">
+        <Link
+          href={`/dashboard/projects/${project.id}/roadmaps`}
+          className="block text-center text-sm px-4 py-2 rounded-lg bg-black text-white hover:opacity-90 transition"
+        >
+          View Roadmap
+        </Link>
+      </div>
 
       {/* Footer */}
       <div className="mt-6 flex items-center justify-between">
@@ -32,7 +44,7 @@ export default function ProjectCard({ project }: { project: Project }) {
           {new Date(project.createdAt).toLocaleDateString()}
         </span>
 
-        {/* Actions */}
+        {/* Secondary Actions */}
         <div className="flex items-center gap-2 opacity-20 group-hover:opacity-100 transition">
           <EditProjectModal project={project} />
 

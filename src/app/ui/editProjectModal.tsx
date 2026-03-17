@@ -42,7 +42,7 @@ export default function EditProjectModal({ project }: { project: Project }) {
     });
   }, [project, reset]);
 
-  console.log(project.id, "project id in edit modal"); // Debug log
+  // console.log(project.id, "project id in edit modal"); // Debug log
 
   const onSubmit = async (data: ProjectInput) => {
     await updateProject.mutateAsync({
