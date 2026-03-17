@@ -31,23 +31,29 @@ export async function POST(
     });
   }
 
-  const roadmapData = await generateRoadMap(project?.prdText as string);
-  const inserted = await db
-    .insert(roadmaps)
-    .values({
-      projectId: id,
-      roadmapData,
-    })
-    .returning();
+  try {
+    const roadmapData = await generateRoadMap(project.prdText);
 
-  return Response.json(inserted[0]);
+    const inserted = await db
+      .insert(roadmaps)
+      .values({
+        projectId: id,
+        roadmapData,
+      })
+      .returning();
+
+    return Response.json(inserted[0]);
+  } catch (error) {
+    return new Response("Roadmap generation failed", { status: 500 });
+  }
 }
 
 export async function GET(
   _req: Request,
-  { params }: { params: { id: string } },
+  { params }: { params: Promise<{ id: string }> },
 ) {
   const { id } = await params;
+
   const session = await getServerSession(authOptions);
   if (!session?.user.id) {
     return new Response("Unauthorized", { status: 401 });
@@ -58,16 +64,14 @@ export async function GET(
   });
 
   if (!project) {
-    return new Response("Not found or not allowed", { status: 404 });
+    return new Response("Project not found", { status: 404 });
   }
 
   const roadmapsData = await db.query.roadmaps.findMany({
     where: eq(roadmaps.projectId, id),
     orderBy: (roadmaps, { desc }) => [desc(roadmaps.createdAt)],
   });
-  if (!roadmapsData.length) {
-    return new Response("Not found or not allowed", { status: 404 });
-  }
 
+  // ✅ Always return array
   return Response.json(roadmapsData);
 }
