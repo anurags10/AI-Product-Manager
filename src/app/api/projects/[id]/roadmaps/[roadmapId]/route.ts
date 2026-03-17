@@ -17,7 +17,6 @@ export async function GET(
   const roadmapData = await db.query.roadmaps.findFirst({
     where: and(eq(roadmaps.id, roadmapId), eq(roadmaps.projectId, id)),
     with: { project: true },
-    orderBy: (roadmaps, { desc }) => [desc(roadmaps.createdAt)],
   });
   if (!roadmapData || roadmapData.project?.userId !== session.user.id) {
     return new Response("Not found or not allowed", { status: 404 });
@@ -37,8 +36,11 @@ export async function DELETE(
   }
   const roadmapData = await db.query.roadmaps.findFirst({
     where: and(eq(roadmaps.id, roadmapId), eq(roadmaps.projectId, id)),
-    with: { project: true },
+    with: {
+      project: true,
+    },
   });
+
   if (!roadmapData || roadmapData.project?.userId !== session.user.id) {
     return new Response("Not found or not allowed", { status: 404 });
   }
@@ -47,5 +49,5 @@ export async function DELETE(
     .where(and(eq(roadmaps.id, roadmapId), eq(roadmaps.projectId, id)))
     .returning();
 
-  return new Response(null, { status: 204 });
+  return Response.json({ success: true });
 }

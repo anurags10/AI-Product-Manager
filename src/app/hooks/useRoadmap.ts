@@ -49,3 +49,43 @@ export function useViewRoadmap(projectId: string) {
     enabled: !!projectId, // prevents running with undefined
   });
 }
+
+// generate single roadmap item
+export function useRoadmap(projectId: string, roadmapId: string) {
+  return useQuery({
+    queryKey: ["roadmap", projectId, roadmapId],
+    queryFn: async () => {
+      const res = await fetch(
+        `/api/projects/${projectId}/roadmaps/${roadmapId}`,
+      );
+
+      if (!res.ok) throw new Error("Failed to fetch roadmap");
+
+      return res.json();
+    },
+    enabled: !!projectId && !!roadmapId,
+  });
+}
+
+// delete roadmap
+
+export function useDeleteRoadmap(projectId: string) {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: async (roadmapId: string) => {
+      const res = await fetch(
+        `/api/projects/${projectId}/roadmaps/${roadmapId}`,
+        { method: "DELETE" },
+      );
+
+      if (!res.ok) throw new Error("Failed to delete roadmap");
+    },
+
+    onSuccess: () => {
+      queryClient.invalidateQueries({
+        queryKey: ["roadmaps", projectId],
+      });
+    },
+  });
+}
