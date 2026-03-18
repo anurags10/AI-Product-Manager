@@ -12,8 +12,6 @@ import {
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
 
-import { Button } from "@/components/ui/button";
-
 import { useDeleteProject } from "../hooks/useProjects";
 
 export default function DeleteProjectDialog({
