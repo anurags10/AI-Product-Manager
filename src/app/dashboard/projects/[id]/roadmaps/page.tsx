@@ -10,45 +10,53 @@ export default function RoadmapsPage() {
   const { id } = useParams() as { id: string };
 
   const { data: roadmaps, isLoading, isError } = useViewRoadmap(id);
-
   const generateRoadmap = useGenerateRoadmap();
 
-  // 🚀 Auto-generate if empty
+  const totalRoadmap = roadmaps?.length ?? 0;
+
   useEffect(() => {
-    if (
-      !isLoading &&
-      roadmaps &&
-      roadmaps.length === 0 &&
-      !generateRoadmap.isPending
-    ) {
+    if (!isLoading && totalRoadmap === 0) {
       generateRoadmap.mutate(id);
     }
-  }, [isLoading, roadmaps, id, generateRoadmap.isPending]);
+  }, [isLoading, totalRoadmap, id]);
 
-  if (isLoading) {
-    return <div>Loading roadmaps...</div>;
-  }
+  if (isLoading) return <div>Loading roadmaps...</div>;
+  if (isError) return <div>Failed to load roadmaps</div>;
 
-  if (generateRoadmap.isPending) {
-    return <div>Generating roadmap... 🚀</div>;
-  }
-
-  if (isError) {
-    return <div>Failed to load roadmaps</div>;
-  }
-  // console.log('Roadmaps:', roadmaps);
-  console.log(
-    "Roadmaps data:",
-    roadmaps.map((r: any) => r.roadmapData.month1),
-  );
   return (
-    <div className="p-6 space-y-4">
-      <h1 className="text-2xl font-bold">Roadmaps</h1>
+    <div className="p-6 space-y-6">
+      {/* Header */}
+      <div className="flex items-center justify-between">
+        <h1 className="text-2xl font-bold">Roadmaps</h1>
 
+        {totalRoadmap < 2 && (
+          <button
+            onClick={() => generateRoadmap.mutate(id)}
+            disabled={generateRoadmap.isPending || totalRoadmap >= 2}
+            className="px-4 py-2 bg-black text-white rounded-lg text-sm cursor-pointer disabled:cursor-not-allowed disabled:bg-gray-400"
+          >
+            {generateRoadmap.isPending
+              ? "Generating..."
+              : totalRoadmap === 0
+                ? "Generate Roadmap"
+                : "Generate Another"}
+          </button>
+        )}
+      </div>
+
+      {/* Generating State */}
+      {generateRoadmap.isPending && (
+        <div className="text-sm text-zinc-500">Generating roadmap... 🚀</div>
+      )}
+
+      {/* Roadmaps */}
       {roadmaps?.map((roadmap: any, index: number) => (
-        <>
-          <RoadmapContainer key={roadmap.id} roadmap={roadmap} index={index} />
-        </>
+        <RoadmapContainer
+          key={roadmap.id}
+          roadmap={roadmap}
+          index={index}
+          total={totalRoadmap}
+        />
       ))}
     </div>
   );

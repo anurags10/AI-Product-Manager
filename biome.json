@@ -22,6 +22,9 @@
         "noUnknownAtRules": "off",
         "noArrayIndexKey": "warn"
       },
+      "correctness": {
+        "useExhaustiveDependencies": "off"
+      },
       "a11y": {
         "useButtonType": "off",
         "noStaticElementInteractions": "off",

@@ -83,6 +83,7 @@ export function useDeleteRoadmap(projectId: string) {
     },
 
     onSuccess: () => {
+      toast.success("Roadmap deleted successfully");
       queryClient.invalidateQueries({
         queryKey: ["roadmaps", projectId],
       });
