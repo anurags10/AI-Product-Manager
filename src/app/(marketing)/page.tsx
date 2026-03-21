@@ -8,7 +8,7 @@ import {
   Sparkles,
   LayoutDashboard,
   FileText,
-  Map,
+  Map as MapIcon,
   Users,
   Zap,
   ShieldCheck,
@@ -269,7 +269,7 @@ export default function HomePage() {
               className="group relative overflow-hidden rounded-3xl bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 p-8 shadow-sm hover:shadow-md transition-all"
             >
               <div className="relative z-10 w-12 h-12 flex items-center justify-center rounded-xl bg-emerald-500/10 text-emerald-500 mb-6">
-                <Map size={24} />
+                <MapIcon size={24} />
               </div>
               <h3 className="text-xl font-bold text-zinc-900 dark:text-white mb-2">
                 Dual Roadmap Options

@@ -1,6 +1,6 @@
 "use client";
 
-import { ReactNode, useState, useRef, useEffect } from "react";
+import { type ReactNode, useState, useRef, useEffect } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { motion, AnimatePresence } from "motion/react";
@@ -20,7 +20,17 @@ import {
   ChevronRight,
   LogOut,
   User,
+  Sparkles,
 } from "lucide-react";
+
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 
 type NavItem = {
   href: string;
@@ -229,10 +239,58 @@ export function AppLayout({ children }: { children: ReactNode }) {
               {theme === "dark" ? <Sun size={18} /> : <Moon size={18} />}
             </button>
 
-            <button className="relative p-2 rounded-full hover:bg-zinc-100 dark:hover:bg-zinc-800 text-zinc-500 transition-colors outline-none">
-              <Bell size={18} />
-              <span className="absolute top-1.5 right-2 w-2 h-2 bg-rose-500 rounded-full border-2 border-white dark:border-zinc-900"></span>
-            </button>
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <button className="relative p-2 rounded-full hover:bg-zinc-100 dark:hover:bg-zinc-800 text-zinc-500 transition-colors outline-none cursor-pointer">
+                  <Bell size={18} />
+                  <span className="absolute top-1.5 right-2 w-2 h-2 bg-rose-500 rounded-full border-2 border-white dark:border-zinc-900 cursor-pointer"></span>
+                </button>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent align="end" className="w-80">
+                <DropdownMenuLabel>Notifications</DropdownMenuLabel>
+                <DropdownMenuSeparator />
+                <div className="flex flex-col gap-1 p-2">
+                  <div className="flex items-start gap-3 p-2 rounded-md hover:bg-zinc-100 dark:hover:bg-zinc-800 transition-colors cursor-pointer">
+                    <div className="w-8 h-8 rounded-full bg-indigo-100 dark:bg-indigo-900/30 flex items-center justify-center text-indigo-600 dark:text-indigo-400 shrink-0">
+                      <FileText size={14} />
+                    </div>
+                    <div className="flex flex-col">
+                      <span className="text-sm font-medium text-zinc-900 dark:text-zinc-100">
+                        Welcome to AI PM!
+                      </span>
+                      <span className="text-xs text-zinc-500 dark:text-zinc-400">
+                        Start by creating your first project and PRD.
+                      </span>
+                      <span className="text-[10px] text-zinc-400 dark:text-zinc-500 mt-1">
+                        Just now
+                      </span>
+                    </div>
+                  </div>
+
+                  <div className="flex items-start gap-3 p-2 rounded-md hover:bg-zinc-100 dark:hover:bg-zinc-800 transition-colors cursor-pointer">
+                    <div className="w-8 h-8 rounded-full bg-emerald-100 dark:bg-emerald-900/30 flex items-center justify-center text-emerald-600 dark:text-emerald-400 shrink-0">
+                      <Sparkles size={14} />
+                    </div>
+                    <div className="flex flex-col">
+                      <span className="text-sm font-medium text-zinc-900 dark:text-zinc-100">
+                        New Feature: Dual Roadmaps
+                      </span>
+                      <span className="text-xs text-zinc-500 dark:text-zinc-400">
+                        You can now generate 2 distinct 3-month roadmaps per
+                        project.
+                      </span>
+                      <span className="text-[10px] text-zinc-400 dark:text-zinc-500 mt-1">
+                        2 days ago
+                      </span>
+                    </div>
+                  </div>
+                </div>
+                <DropdownMenuSeparator />
+                <DropdownMenuItem className="w-full justify-center text-xs text-indigo-600 dark:text-indigo-400 cursor-pointer">
+                  Mark all as read
+                </DropdownMenuItem>
+              </DropdownMenuContent>
+            </DropdownMenu>
 
             <div className="relative" ref={profileRef}>
               <button

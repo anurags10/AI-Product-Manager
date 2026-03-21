@@ -28,8 +28,11 @@ export default function SettingsPage() {
 
           <div className="space-y-4 max-w-md">
             <div>
-              <label className="block text-sm font-medium mb-2">Name</label>
+              <label htmlFor="name" className="block text-sm font-medium mb-2">
+                Name
+              </label>
               <input
+                id="name"
                 type="text"
                 value={(session?.user as any)?.name || ""}
                 readOnly
@@ -37,8 +40,11 @@ export default function SettingsPage() {
               />
             </div>
             <div>
-              <label className="block text-sm font-medium mb-2">Email</label>
+              <label htmlFor="email" className="block text-sm font-medium mb-2">
+                Email
+              </label>
               <input
+                id="email"
                 type="email"
                 value={session?.user?.email || ""}
                 readOnly

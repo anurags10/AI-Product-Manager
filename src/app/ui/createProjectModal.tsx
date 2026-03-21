@@ -2,7 +2,7 @@
 
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { projectSchema, ProjectInput } from "../lib/validator/projects";
+import { projectSchema, type ProjectInput } from "../lib/validator/projects";
 import { X, Sparkles } from "lucide-react";
 import { useCreateProject } from "../hooks/useProjects";
 import { motion, AnimatePresence } from "motion/react";
@@ -87,10 +87,14 @@ export default function CreateProjectModal({
 
           <form onSubmit={handleSubmit(onSubmit)} className="space-y-5">
             <div className="space-y-2">
-              <label className="text-sm font-medium text-zinc-700 dark:text-zinc-300">
+              <label
+                htmlFor="name"
+                className="text-sm font-medium text-zinc-700 dark:text-zinc-300"
+              >
                 Project Name
               </label>
               <Input
+                id="name"
                 {...register("name")}
                 placeholder="e.g. Acme Mobile App V2"
                 className="h-11 bg-zinc-50 dark:bg-zinc-900/50"
@@ -104,10 +108,14 @@ export default function CreateProjectModal({
             </div>
 
             <div className="space-y-2">
-              <label className="text-sm font-medium text-zinc-700 dark:text-zinc-300">
+              <label
+                htmlFor="prdText"
+                className="text-sm font-medium text-zinc-700 dark:text-zinc-300"
+              >
                 Product Requirements (PRD)
               </label>
               <Textarea
+                id="prdText"
                 {...register("prdText")}
                 placeholder="Describe your product goals, targeted users, and core features here..."
                 className="min-h-[160px] resize-none bg-zinc-50 dark:bg-zinc-900/50"

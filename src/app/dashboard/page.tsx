@@ -1,6 +1,12 @@
 "use client";
 import { motion } from "motion/react";
-import { LayoutDashboard, Users, Activity, FileText, Map } from "lucide-react";
+import {
+  LayoutDashboard,
+  Users,
+  Activity,
+  FileText,
+  Map as MapIcon,
+} from "lucide-react";
 import { useProject } from "../hooks/useProjects";
 import { useEffect, useState } from "react";
 import Link from "next/link";
@@ -83,7 +89,7 @@ export default function DashboardOverviewPage() {
           {
             label: "Roadmaps",
             value: isLoading ? "-" : roadmapCount,
-            icon: Map,
+            icon: MapIcon,
           },
           { label: "Team Space", value: "Personal", icon: Users },
         ].map((stat, i) => (

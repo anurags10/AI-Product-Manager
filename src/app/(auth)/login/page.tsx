@@ -5,7 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { useState } from "react";
 import { motion } from "motion/react";
-import { LayoutDashboard, Sparkles, Map, Zap } from "lucide-react";
+import { LayoutDashboard, Sparkles, Map as MapIcon, Zap } from "lucide-react";
 
 const GoogleIcon = () => (
   <svg
@@ -14,6 +14,7 @@ const GoogleIcon = () => (
     height="18"
     xmlns="http://www.w3.org/2000/svg"
   >
+    <title>Google Logo</title>
     <path
       d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"
       fill="#4285F4"
@@ -104,7 +105,7 @@ export default function LoginPage() {
             </div>
             <div className="flex items-center gap-3 text-sm text-zinc-300">
               <div className="w-8 h-8 rounded-md bg-white/5 border border-white/10 flex items-center justify-center text-emerald-400">
-                <Map size={16} />
+                <MapIcon size={16} />
               </div>
               <span className="font-medium">
                 Dual 3-Month Roadmap Generation
@@ -159,10 +160,14 @@ export default function LoginPage() {
 
           <div className="space-y-5">
             <div className="space-y-1">
-              <label className="text-sm font-medium text-zinc-700 dark:text-zinc-300">
+              <label
+                htmlFor="email"
+                className="text-sm font-medium text-zinc-700 dark:text-zinc-300"
+              >
                 Email
               </label>
               <Input
+                id="email"
                 placeholder="Enter your email"
                 onChange={(e) => setEmail(e.target.value)}
                 type="email"
@@ -172,10 +177,14 @@ export default function LoginPage() {
             </div>
 
             <div className="space-y-1">
-              <label className="text-sm font-medium text-zinc-700 dark:text-zinc-300">
+              <label
+                htmlFor="password"
+                className="text-sm font-medium text-zinc-700 dark:text-zinc-300"
+              >
                 Password
               </label>
               <Input
+                id="password"
                 type="password"
                 placeholder="••••••••"
                 onChange={(e) => setPassword(e.target.value)}

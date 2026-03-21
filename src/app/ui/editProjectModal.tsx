@@ -1,7 +1,7 @@
 "use client";
 
 import type { Project } from "@/types/project";
-import { projectSchema, ProjectInput } from "../lib/validator/projects";
+import { projectSchema, type ProjectInput } from "../lib/validator/projects";
 import { useState, useEffect } from "react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useUpdateProject } from "../hooks/useProjects";
