@@ -6,7 +6,7 @@ import { and, eq } from "drizzle-orm";
 
 export async function DELETE(
   req: Request,
-  { params }: { params: { id: string } },
+  { params }: { params: Promise<{ id: string }> },
 ) {
   const { id } = await params;
   const session = await getServerSession(authOptions);
@@ -25,7 +25,7 @@ export async function DELETE(
 }
 export async function PUT(
   req: Request,
-  { params }: { params: { id: string } },
+  { params }: { params: Promise<{ id: string }> },
 ) {
   // console.log('CTX:', params);
   const session = await getServerSession(authOptions);
