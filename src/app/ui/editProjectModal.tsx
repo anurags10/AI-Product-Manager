@@ -56,7 +56,11 @@ export default function EditProjectModal({ project }: { project: Project }) {
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
-        <Button size="sm" variant="outline" className="cursor-pointer">
+        <Button
+          size="sm"
+          variant="outline"
+          className="cursor-pointer text-zinc-700 dark:text-zinc-300 border-zinc-200 dark:border-zinc-700 bg-white dark:bg-zinc-800"
+        >
           <Edit size={16} />
         </Button>
       </DialogTrigger>

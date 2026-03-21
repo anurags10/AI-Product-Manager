@@ -47,7 +47,7 @@ export default function RoadmapContainer({
   };
 
   return (
-    <div className="mb-12 border border-zinc-200 rounded-2xl p-6 bg-white shadow-sm">
+    <div className="mb-12 border border-zinc-200 dark:border-zinc-800 rounded-2xl p-6 bg-white dark:bg-zinc-900 shadow-sm">
       {/* Header */}
       <div className="flex items-center justify-between mb-6">
         <div>
