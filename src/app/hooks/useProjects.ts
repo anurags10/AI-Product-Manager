@@ -3,7 +3,7 @@
 import { useQuery } from "@tanstack/react-query";
 import { fetchProjects } from "../lib/api/projects";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { projectSchema, ProjectInput } from "../lib/validator/projects";
+import { projectSchema, type ProjectInput } from "../lib/validator/projects";
 import { toast } from "sonner";
 
 /* =========================
