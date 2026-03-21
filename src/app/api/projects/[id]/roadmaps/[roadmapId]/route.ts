@@ -7,7 +7,7 @@ import { projects } from "@/db/schema";
 
 export async function GET(
   _req: Request,
-  { params }: { params: { id: string; roadmapId: string } },
+  { params }: { params: Promise<{ id: string; roadmapId: string }> },
 ) {
   const { id, roadmapId } = await params;
   const session = await getServerSession(authOptions);
@@ -27,7 +27,7 @@ export async function GET(
 
 export async function DELETE(
   _req: Request,
-  { params }: { params: { id: string; roadmapId: string } },
+  { params }: { params: Promise<{ id: string; roadmapId: string }> },
 ) {
   const { id, roadmapId } = await params;
   const session = await getServerSession(authOptions);
